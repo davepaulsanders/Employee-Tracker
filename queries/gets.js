@@ -7,9 +7,10 @@ const departmentQuery = () => {
     });
 };
 
-const employeeQuery = () => {
+const employeeQuery = async () => {
   //formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
-  db.promise()
+  const employees = await db
+    .promise()
     .query(
       `SELECT employee.id, employee.first_name, employee.last_name, roles.title, department.dept_name AS department, roles.salary, employee.manager_id
       FROM employee
@@ -17,10 +18,10 @@ const employeeQuery = () => {
       LEFT JOIN department on roles.dept_id = department.id`
     )
     .then(([rows]) => {
-      console.log(` \n =========================================`);
-      console.table(rows);
-      console.log(`=========================================`);
+      return rows;
     });
+  console.table(employees);
+  return employees;
 };
 
 const roleQuery = () => {

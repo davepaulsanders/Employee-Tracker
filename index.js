@@ -43,6 +43,9 @@ promptUser().then((answers) => {
     case "Add employee":
       addEmployeePrompt();
       break;
+    case "Update employee role":
+      updateEmployeeRole();
+      break;
   }
 });
 
@@ -108,5 +111,29 @@ const addEmployeePrompt = () => {
 
       // send answers to query
       addEmployee(firstName, lastName, role, manager);
+    });
+};
+
+const updateEmployeeRole = async () => {
+  // get list of employees
+  const employees = await employeeQuery();
+
+  // combine first and last name, make a list, and add it to choices
+  const list = [];
+  employees.forEach((employee) =>
+    list.push(`${employee.first_name} ${employee.last_name}`)
+  );
+
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "employeeChoice",
+        message: "Which employee do you want to update?",
+        choices: list,
+      },
+    ])
+    .then((answer) => {
+      console.log(answer.employeeChoice);
     });
 };
