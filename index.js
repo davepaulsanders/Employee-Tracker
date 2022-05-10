@@ -1,7 +1,8 @@
 const inquirer = require("inquirer");
-const { departmentQuery, roleQuery, employeeQuery } = require("./utils/gets");
-const { addDepartment, addRole, addEmployee } = require("./utils/adds");
+const { departmentQuery, roleQuery, employeeQuery } = require("./queries/gets");
+const { addDepartment, addRole, addEmployee } = require("./queries/adds");
 
+// Action choices for user
 const promptUser = () => {
   return inquirer.prompt([
     {
@@ -54,6 +55,7 @@ const addDepartmentPrompt = () => {
       },
     ])
     .then((answer) => {
+      // send answers to query
       addDepartment(answer.departmentChoice);
     });
 };
@@ -76,6 +78,7 @@ const addRolePrompt = () => {
     ])
     .then((answers) => {
       const { roleChoice, salary, departmentId } = answers;
+      // send answers to query
       addRole(roleChoice, salary, departmentId);
     });
 };
@@ -92,16 +95,18 @@ const addEmployeePrompt = () => {
         message: "What is their last name?",
       },
       {
-        name: "roleId",
-        message: "What is their role ID?",
+        name: "role",
+        message: "What is their role?",
       },
       {
-        name: "managerId",
-        message: "What is their manager ID?",
+        name: "manager",
+        message: "Who is their manager? (Hit enter if none)",
       },
     ])
     .then((answers) => {
-      const { firstName, lastName, roleId, managerId } = answers;
-      addEmployee(firstName, lastName, roleId, managerId);
+      const { firstName, lastName, role, manager } = answers;
+
+      // send answers to query
+      addEmployee(firstName, lastName, role, manager);
     });
 };
