@@ -1,5 +1,4 @@
 const db = require("../config/connection");
-
 const departmentQuery = () => {
   db.promise()
     .query(`SELECT * FROM department`)
@@ -18,7 +17,9 @@ const employeeQuery = () => {
       LEFT JOIN department on roles.dept_id = department.id`
     )
     .then(([rows]) => {
+      console.log(` \n =========================================`);
       console.table(rows);
+      console.log(`=========================================`);
     });
 };
 
