@@ -1,12 +1,12 @@
 const db = require("../config/connection");
 
-const addDepartment = (department) => {
+const addDepartment = async (department) => {
   db.promise()
     .query(`INSERT INTO department (dept_name) VALUES ("${department}")`)
     .then(console.log(`${department} Department added`));
 };
 
-const addRole = (title, salary, deptID) => {
+const addRole = async (title, salary, deptID) => {
   db.promise()
     .query(
       `INSERT INTO roles (title, salary, dept_id) VALUES ("${title}","${salary}","${deptID}")`

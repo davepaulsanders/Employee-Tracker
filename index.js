@@ -2,53 +2,58 @@ const inquirer = require("inquirer");
 const { departmentQuery, roleQuery, employeeQuery } = require("./queries/gets");
 const { addDepartment, addRole, addEmployee } = require("./queries/adds");
 const { updateEmployeeQuery } = require("./queries/update");
+const { ExternalEditor } = require("external-editor");
 
 // Action choices for user
-const promptUser = () => {
-  return inquirer.prompt([
-    {
-      type: "list",
-      name: "actionChoice",
-      message: "What would you like to do?",
-      choices: [
-        "View departments",
-        "View roles",
-        "View employees",
-        "Add department",
-        "Add role",
-        "Add employee",
-        "Update employee role",
-      ],
-    },
-  ]);
+const promptEnter = () => {
+  return inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "actionChoice",
+        message: "What would you like to do?",
+        choices: [
+          "View departments",
+          "View roles",
+          "View employees",
+          "Add department",
+          "Add role",
+          "Add employee",
+          "Update employee role",
+          "Exit",
+        ],
+      },
+    ])
+    .then((answers) => {
+      const action = answers.actionChoice;
+      switch (action) {
+        case "View departments":
+          departmentQuery().then(promptEnter);
+          break;
+        case "View employees":
+          employeeQuery().then(promptEnter);
+          break;
+        case "View roles":
+          roleQuery().then(promptEnter);
+          break;
+        case "Add department":
+          addDepartmentPrompt();
+          break;
+        case "Add role":
+          addRolePrompt();
+          break;
+        case "Add employee":
+          addEmployeePrompt();
+          break;
+        case "Update employee role":
+          updateEmployeeRole();
+          break;
+        case "Exit":
+          console.log("Goodbye");
+          break;
+      }
+    });
 };
-
-promptUser().then((answers) => {
-  const action = answers.actionChoice;
-  switch (action) {
-    case "View departments":
-      departmentQuery();
-      break;
-    case "View employees":
-      employeeQuery();
-      break;
-    case "View roles":
-      roleQuery();
-      break;
-    case "Add department":
-      addDepartmentPrompt();
-      break;
-    case "Add role":
-      addRolePrompt();
-      break;
-    case "Add employee":
-      addEmployeePrompt();
-      break;
-    case "Update employee role":
-      updateEmployeeRole();
-      break;
-  }
-});
 
 const addDepartmentPrompt = () => {
   inquirer
@@ -60,7 +65,7 @@ const addDepartmentPrompt = () => {
     ])
     .then((answer) => {
       // send answers to query
-      addDepartment(answer.departmentChoice);
+      addDepartment(answer.departmentChoice).then(promptEnter);
     });
 };
 
@@ -83,7 +88,7 @@ const addRolePrompt = () => {
     .then((answers) => {
       const { roleChoice, salary, departmentId } = answers;
       // send answers to query
-      addRole(roleChoice, salary, departmentId);
+      addRole(roleChoice, salary, departmentId).then(promptEnter);
     });
 };
 
@@ -109,9 +114,8 @@ const addEmployeePrompt = () => {
     ])
     .then((answers) => {
       const { firstName, lastName, role, manager } = answers;
-
       // send answers to query
-      addEmployee(firstName, lastName, role, manager);
+      addEmployee(firstName, lastName, role, manager).then(promptEnter);
     });
 };
 
@@ -140,6 +144,8 @@ const updateEmployeeRole = async () => {
     ])
     .then((answer) => {
       const { employeeName, newRole } = answer;
-      updateEmployeeQuery(employeeName, newRole);
+      updateEmployeeQuery(employeeName, newRole).then(promptEnter);
     });
 };
+
+promptEnter();

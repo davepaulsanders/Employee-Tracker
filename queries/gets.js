@@ -1,10 +1,13 @@
 const db = require("../config/connection");
-const departmentQuery = () => {
-  db.promise()
+
+const departmentQuery = async () => {
+  const departments = await db
+    .promise()
     .query(`SELECT * FROM department`)
     .then(([rows]) => {
       console.table(rows);
     });
+  return departments;
 };
 
 const employeeQuery = async () => {
@@ -21,11 +24,13 @@ const employeeQuery = async () => {
       return rows;
     });
   console.table(employees);
+  // returning data for update employee role function
   return employees;
 };
 
-const roleQuery = () => {
-  db.promise()
+const roleQuery = async () => {
+  const roles = await db
+    .promise()
     .query(
       `SELECT roles.title AS job_title, roles.id AS role_id, department.dept_name AS department, roles.salary
       FROM roles
@@ -34,6 +39,7 @@ const roleQuery = () => {
     .then(([rows]) => {
       console.table(rows);
     });
+  return roles;
 };
 
 module.exports = { departmentQuery, roleQuery, employeeQuery };
