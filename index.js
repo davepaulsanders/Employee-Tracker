@@ -1,6 +1,7 @@
 const inquirer = require("inquirer");
 const { departmentQuery, roleQuery, employeeQuery } = require("./queries/gets");
 const { addDepartment, addRole, addEmployee } = require("./queries/adds");
+const { updateEmployeeQuery } = require("./queries/update");
 
 // Action choices for user
 const promptUser = () => {
@@ -128,12 +129,17 @@ const updateEmployeeRole = async () => {
     .prompt([
       {
         type: "list",
-        name: "employeeChoice",
+        name: "employeeName",
         message: "Which employee do you want to update?",
         choices: list,
       },
+      {
+        name: "newRole",
+        message: "What is their new role?",
+      },
     ])
     .then((answer) => {
-      console.log(answer.employeeChoice);
+      const { employeeName, newRole } = answer;
+      updateEmployeeQuery(employeeName, newRole);
     });
 };
