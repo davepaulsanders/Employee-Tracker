@@ -2,7 +2,7 @@ const inquirer = require("inquirer");
 const { departmentQuery, roleQuery, employeeQuery } = require("./queries/gets");
 const { addDepartment, addRole, addEmployee } = require("./queries/adds");
 const { updateEmployeeQuery } = require("./queries/update");
-const { ExternalEditor } = require("external-editor");
+const db = require("./config/connection");
 
 // Action choices for user
 const promptEnter = () => {
@@ -50,6 +50,7 @@ const promptEnter = () => {
           break;
         case "Exit":
           console.log("Goodbye");
+          db.end();
           break;
       }
     });
