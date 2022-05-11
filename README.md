@@ -24,10 +24,9 @@ You must have MYSQL on your computer to use this application. Open up a connecti
 source db/db.sql
 source db/schema.sql
 source db/seeds.sql
-
 ```
 
-You must also create a .env file and add the password as described in .env.EXAMPLE.
+You must also create a .env file and add your MYSQL password as described in .env.EXAMPLE.
 
 ## Technologies
 
