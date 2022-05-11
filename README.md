@@ -16,9 +16,18 @@ This Node application allows users to interact with an Employee Tracker database
 
 ## Installation and Start Up
 
-To install, `git clone` the repository and run `npm install` to install dependencies. T
+To install, `git clone` the repository and run `npm install` to install dependencies.
 
-You must have MYSQL on your computer to use this application.
+You must have MYSQL on your computer to use this application. Open up a connection to MYSQL in the root directory and run:
+
+```MYSQL
+source db/db.sql
+source db/schema.sql
+source db/seeds.sql
+
+```
+
+You must also create a .env file and add the password as described in .env.EXAMPLE.
 
 ## Technologies
 
