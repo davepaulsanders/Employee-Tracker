@@ -1,5 +1,4 @@
 const db = require("../config/connection");
-const { departmentQuery } = require("./gets");
 
 const addDepartment = async (department) => {
   db.promise()

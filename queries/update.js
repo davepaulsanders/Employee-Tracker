@@ -1,5 +1,4 @@
 const db = require("../config/connection");
-const { employeeQuery } = require("./gets");
 
 const updateEmployeeQuery = async (name, newRole) => {
   // Split name
