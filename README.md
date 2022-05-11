@@ -26,7 +26,9 @@ source db/schema.sql
 source db/seeds.sql
 ```
 
-You must also create a .env file and add your MYSQL password as described in .env.EXAMPLE.
+You must also create a .env file and add your MYSQL host, username, and password as described in .env.EXAMPLE.
+
+Next, run `npm start` to run the application.
 
 ## Technologies
 
