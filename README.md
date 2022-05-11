@@ -33,3 +33,7 @@ Next, run `npm start` to run the application.
 ## Technologies
 
 This app uses Node.js, MYSQL, Express, and Inquirer to prompt the user and save their responses. A package called console.table is used to display data from the database.
+
+## Video Walkthrough
+
+[Link to video]()
