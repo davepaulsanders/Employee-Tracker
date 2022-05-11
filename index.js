@@ -83,7 +83,7 @@ const addRolePrompt = () => {
       },
       {
         name: "departmentId",
-        message: "What is the department ID?",
+        message: "Which deparment is the role in?",
       },
     ])
     .then((answers) => {

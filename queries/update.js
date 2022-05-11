@@ -1,32 +1,24 @@
 const db = require("../config/connection");
+const { employeeQuery } = require("./gets");
 
 const updateEmployeeQuery = async (name, newRole) => {
   // Split name
   const [first, last] = name.split(" ");
 
   // get role id of newRole
-  const roleID = await db
+  const roleQ = await db
     .promise()
-    .query(`SELECT id FROM roles WHERE title = "${newRole}"`)
-    .then(([rows]) => {
-      if (!rows[0].id) {
-        return "That job doesn't exist";
-      }
-      return rows[0].id;
-    });
+    .query(`SELECT id FROM roles WHERE title = "${newRole}"`);
+
+  const roleID = roleQ[0][0].id;
 
   // get employeeID of name
-  const employeeID = await db
+  const employeeQ = await db
     .promise()
     .query(
       `SELECT id FROM employee WHERE first_name = "${first}" AND last_name = "${last}"`
-    )
-    .then(([rows]) => {
-      if (!rows[0].id) {
-        return "That employee doesn't exist";
-      }
-      return rows[0].id;
-    });
+    );
+  const employeeID = employeeQ[0][0].id;
 
   // Update employee
   db.promise()
