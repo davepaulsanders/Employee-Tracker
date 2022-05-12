@@ -36,4 +36,4 @@ This app uses Node.js, MYSQL, Express, and Inquirer to prompt the user and save 
 
 ## Video Walkthrough
 
-[Link to video]()
+[Link to video](https://drive.google.com/file/d/1yMtr-KkjxE7l16FPLSMZBiqialz489gc/view?usp=sharing)

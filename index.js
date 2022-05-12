@@ -60,6 +60,7 @@ const promptUser = () => {
     });
 };
 
+// questions for adding a Department
 const addDepartmentPrompt = () => {
   inquirer
     .prompt([
@@ -82,6 +83,7 @@ const addDepartmentPrompt = () => {
     });
 };
 
+// questions for adding a Role
 const addRolePrompt = () => {
   inquirer
     .prompt([
@@ -129,6 +131,7 @@ const addRolePrompt = () => {
     });
 };
 
+// questions for adding an Employee
 const addEmployeePrompt = () => {
   inquirer
     .prompt([
@@ -180,6 +183,7 @@ const addEmployeePrompt = () => {
     });
 };
 
+// questions for updating an employee
 const updateEmployeeRole = async () => {
   // get list of employees
   const employees = await getEmployees();
@@ -210,6 +214,7 @@ const updateEmployeeRole = async () => {
     ])
     .then((answer) => {
       const { employeeName, newRole } = answer;
+      // send answers to query
       updateEmployee(employeeName, newRole).then(promptUser);
     });
 };
