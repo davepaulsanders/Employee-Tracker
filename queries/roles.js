@@ -3,7 +3,7 @@ const cTable = require("console.table");
 
 const getRoles = async () => {
   const roles = await db.promise().query(
-    `SELECT roles.title AS job_title, roles.id AS role_id, department.dept_name AS department, roles.salary
+    `SELECT roles.title AS Title, roles.id AS ID, department.dept_name AS Department, roles.salary AS salary
         FROM roles
         LEFT JOIN department ON roles.dept_id = department.id;`
   );

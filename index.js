@@ -5,7 +5,7 @@ const {
   addEmployee,
   updateEmployee,
 } = require("./queries/employees");
-const { getRoles, addRole } = require('./queries/roles')
+const { getRoles, addRole } = require("./queries/roles");
 const db = require("./config/connection");
 
 // Action choices for user
@@ -126,13 +126,10 @@ const addEmployeePrompt = () => {
 
 const updateEmployeeRole = async () => {
   // get list of employees
-  const employees = await employeeQuery();
-
+  const employees = await getEmployees();
   // combine first and last name, make a list, and add it to choices
   const list = [];
-  employees.forEach((employee) =>
-    list.push(`${employee.first_name} ${employee.last_name}`)
-  );
+  employees.forEach((employee) => list.push(`${employee.Name}`));
 
   inquirer
     .prompt([

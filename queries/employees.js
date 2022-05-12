@@ -4,10 +4,14 @@ const cTable = require("console.table");
 const getEmployees = async () => {
   //formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
   const employees = await db.promise().query(
-    `SELECT employee.id, employee.first_name, employee.last_name, roles.title, department.dept_name AS department, roles.salary, employee.manager_id
-          FROM employee
-          LEFT JOIN roles ON employee.role_id = roles.id
-          LEFT JOIN department on roles.dept_id = department.id`
+    `SELECT employee.id AS ID, CONCAT(employee.first_name, " ", employee.last_name) AS Name,
+    roles.title AS Title,
+    department.dept_name AS Department,
+    roles.salary AS Salary,
+    CONCAT(e.first_name, ' ' ,e.last_name) AS Manager FROM employee
+    LEFT JOIN roles ON employee.role_id = roles.id
+    LEFT JOIN department ON roles.dept_id = department.id
+    LEFT JOIN employee e ON employee.manager_id = e.id`
   );
 
   console.table(employees[0]);

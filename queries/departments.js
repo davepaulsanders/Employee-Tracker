@@ -2,9 +2,10 @@ const db = require("../config/connection");
 const cTable = require("console.table");
 
 const getDepartments = async () => {
-  const departments = await db
-    .promise()
-    .query(`SELECT * FROM department ORDER BY id`);
+  const departments = await db.promise().query(
+    `SELECT department.id AS ID,
+      department.dept_name AS Department FROM department ORDER BY id`
+  );
   console.table(departments[0]);
   return departments;
 };
