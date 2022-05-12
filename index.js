@@ -66,6 +66,14 @@ const addDepartmentPrompt = () => {
       {
         name: "departmentChoice",
         message: "What department would you like to add?",
+        validate: (department) => {
+          if (department) {
+            return true;
+          } else {
+            console.log("Please enter a department!");
+            return false;
+          }
+        },
       },
     ])
     .then((answer) => {
@@ -80,14 +88,38 @@ const addRolePrompt = () => {
       {
         name: "roleChoice",
         message: "What role would you like to add?",
+        validate: (role) => {
+          if (role) {
+            return true;
+          } else {
+            console.log("Please enter a role!");
+            return false;
+          }
+        },
       },
       {
         name: "salary",
         message: "What is the salary for this role?",
+        validate: (salary) => {
+          if (salary) {
+            return true;
+          } else {
+            console.log("Please enter a salaryt!");
+            return false;
+          }
+        },
       },
       {
         name: "departmentId",
         message: "Which deparment is the role in?",
+        validate: (department) => {
+          if (department) {
+            return true;
+          } else {
+            console.log("Please enter a department!");
+            return false;
+          }
+        },
       },
     ])
     .then((answers) => {
@@ -103,14 +135,38 @@ const addEmployeePrompt = () => {
       {
         name: "firstName",
         message: "What is their first name?",
+        validate: (name) => {
+          if (name) {
+            return true;
+          } else {
+            console.log("Please enter a first name!");
+            return false;
+          }
+        },
       },
       {
         name: "lastName",
         message: "What is their last name?",
+        validate: (lname) => {
+          if (lname) {
+            return true;
+          } else {
+            console.log("Please enter a last name!");
+            return false;
+          }
+        },
       },
       {
         name: "role",
         message: "What is their role?",
+        validate: (role) => {
+          if (role) {
+            return true;
+          } else {
+            console.log("Please enter a role!");
+            return false;
+          }
+        },
       },
       {
         name: "manager",
@@ -142,6 +198,14 @@ const updateEmployeeRole = async () => {
       {
         name: "newRole",
         message: "What is their new role?",
+        validate: (role) => {
+          if (department) {
+            return true;
+          } else {
+            console.log("Please enter a role!");
+            return false;
+          }
+        },
       },
     ])
     .then((answer) => {
