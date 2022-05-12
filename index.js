@@ -1,11 +1,15 @@
 const inquirer = require("inquirer");
-const { departmentQuery, roleQuery, employeeQuery } = require("./queries/gets");
-const { addDepartment, addRole, addEmployee } = require("./queries/adds");
-const { updateEmployeeQuery } = require("./queries/update");
+const { getDepartments, addDepartment } = require("./queries/departments");
+const {
+  getEmployees,
+  addEmployee,
+  updateEmployee,
+} = require("./queries/employees");
+const { getRoles, addRole } = require('./queries/roles')
 const db = require("./config/connection");
 
 // Action choices for user
-const promptEnter = () => {
+const promptUser = () => {
   return inquirer
     .prompt([
       {
@@ -28,13 +32,13 @@ const promptEnter = () => {
       const action = answers.actionChoice;
       switch (action) {
         case "View departments":
-          departmentQuery().then(promptEnter);
+          getDepartments().then(promptUser);
           break;
         case "View employees":
-          employeeQuery().then(promptEnter);
+          getEmployees().then(promptUser);
           break;
         case "View roles":
-          roleQuery().then(promptEnter);
+          getRoles().then(promptUser);
           break;
         case "Add department":
           addDepartmentPrompt();
@@ -66,7 +70,7 @@ const addDepartmentPrompt = () => {
     ])
     .then((answer) => {
       // send answers to query
-      addDepartment(answer.departmentChoice).then(promptEnter);
+      addDepartment(answer.departmentChoice).then(promptUser);
     });
 };
 
@@ -89,7 +93,7 @@ const addRolePrompt = () => {
     .then((answers) => {
       const { roleChoice, salary, departmentId } = answers;
       // send answers to query
-      addRole(roleChoice, salary, departmentId).then(promptEnter);
+      addRole(roleChoice, salary, departmentId).then(promptUser);
     });
 };
 
@@ -116,7 +120,7 @@ const addEmployeePrompt = () => {
     .then((answers) => {
       const { firstName, lastName, role, manager } = answers;
       // send answers to query
-      addEmployee(firstName, lastName, role, manager).then(promptEnter);
+      addEmployee(firstName, lastName, role, manager).then(promptUser);
     });
 };
 
@@ -145,7 +149,7 @@ const updateEmployeeRole = async () => {
     ])
     .then((answer) => {
       const { employeeName, newRole } = answer;
-      updateEmployeeQuery(employeeName, newRole).then(promptEnter);
+      updateEmployee(employeeName, newRole).then(promptUser);
     });
 };
 
@@ -158,4 +162,4 @@ console.log(`
 ╚══════╝╚═╝░░░░░╚═╝╚═╝░░░░░╚══════╝░╚════╝░░░░╚═╝░░░╚══════╝╚══════╝  ░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝\n\n`);
 
 // Initializing the program
-promptEnter();
+promptUser();
